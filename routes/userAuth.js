@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 
-const { check, validationResult } = require('express-validator');
+const { check } = require('express-validator');
 const {
   asyncHandler,
   csrfProtection,
@@ -45,6 +45,9 @@ const validateUser = [
   check('confirmPassword')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a value for Confirm Password'),
+  check('gender')
+    .exists({ checkFalsy: true })
+    .isLength({ max: 10 })
 ];
 
 //Validate email and password for login

@@ -13,33 +13,38 @@ const router = express.Router();
 
 //NOTES: This file is just to have active calls querying from the database. once everyhthing is working and displaying as needed I will add the requireAuth
 // To test when a user is logged in
-let matchedSongs = []
-let matchedFriends = []
-let matchedUsers = []
-let matchedArtist = []
-let matchedAlbums = []
-let matchedPlaylists = []
+console.log('Outside')
 
-const searchResults = {
-    matchedSongs,
-    matchedFriends,
-    matchedUsers,
-    matchedArtist,
-    matchedAlbums
-}
+
 
 
 //search route for finding all Artists, songs, and albums
 router.get('/', asyncHandler( async(req, res) => {
     let { searchInput } = req.body;
     searchInput = searchInput.toLowerCase();
+     
+    console.log('Inside')
 
-    //Artists
+    let matchedSongs = []
+    let matchedFriends = []
+    let matchedUsers = []
+    let matchedArtist = []
+    let matchedAlbums = []
+    let matchedPlaylists = []
+
+    const searchResults = {
+        matchedSongs,
+        matchedFriends,
+        matchedUsers,
+        matchedArtist,
+        matchedAlbums
+    }
+
     const artists = await Artist.findAll();
     artists.map( artist => {
-        let check = artist.artistName
-        check = check.toLowerCase()
-        if(regExMaker(check, searchInput) !== null){
+        let find = artist.artistName
+        find = find.toLowerCase()
+        if(regExMaker(find, searchInput) !== null){
             matchedArtist.push(artist.artistName)
         }
     });
@@ -47,9 +52,9 @@ router.get('/', asyncHandler( async(req, res) => {
     //Songs
     const songs = await Song.findAll()
     songs.map( song => {
-        let check = song.songName
-        check = check.toLowerCase()
-        if(regExMaker(check, searchInput) !== null){
+        let find = song.songName
+        find = find.toLowerCase()
+        if(regExMaker(find, searchInput) !== null){
             matchedSongs.push(song.songName)
         }
         
@@ -57,13 +62,14 @@ router.get('/', asyncHandler( async(req, res) => {
     
     const albums = await Album.findAll()
     albums.map( album => {
-        let check = album.albumName
-        check = check.toLowerCase()
-        if(regExMaker(check, searchInput) !== null){
+        let find = album.albumName
+        find = find.toLowerCase()
+        if(regExMaker(find, searchInput) !== null){
             matchedAlbums.push(album.albumName)
         }
     });
-    await res.json({searchResults})
+    await res.send({searchResults})
+
 }));
 
 //search route for finding all user friends
