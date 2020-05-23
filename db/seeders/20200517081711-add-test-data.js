@@ -212,7 +212,7 @@ const songs = await queryInterface.bulkInsert(
       releaseDate: albums[4].releaseDate,
       albumId: albums[4].id,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date(), /*5*/
     },
 
   ],
