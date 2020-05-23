@@ -112,6 +112,11 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          artistName: 'Adele',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       { returning: true }
     );
@@ -154,109 +159,123 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ],
-      { returning: true }
-    );
-
-    const songs = await queryInterface.bulkInsert(
-      'Songs',
-      [
-        {
-          songName: "Don't stop me now",
-          releaseDate: albums[0].releaseDate,
-          albumId: albums[0].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          songName: 'Escape From LA',
-          releaseDate: albums[1].releaseDate,
-          albumId: albums[1].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          songName: 'Hide and Seek',
-          releaseDate: albums[2].releaseDate,
-          albumId: albums[2].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          songName: 'Seasons',
-          releaseDate: albums[3].releaseDate,
-          albumId: albums[3].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          songName: 'Teach Me Tonight',
-          releaseDate: albums[4].releaseDate,
-          albumId: albums[4].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
+        albumName: '25',
+        releaseDate: new Date('12-1-2014'),
+        artistId: artists[5].id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
         },
       ],
       { returning: true }
     );
 
-    return queryInterface.bulkInsert(
-      'PlaylistSongs',
-      [
-        {
-          song: songs[2].songName,
-          playlistId: playlists[3].id,
-          songId: songs[2].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          song: songs[3].songName,
-          playlistId: playlists[3].id,
-          songId: songs[3].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          song: songs[4].songName,
-          playlistId: playlists[3].id,
-          songId: songs[4].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          song: songs[3].songName,
-          playlistId: playlists[0].id,
-          songId: songs[3].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          song: songs[4].songName,
-          playlistId: playlists[1].id,
-          songId: songs[4].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          song: songs[2].songName,
-          playlistId: playlists[1].id,
-          songId: songs[2].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      {}
-    );
+const songs = await queryInterface.bulkInsert(
+  'Songs',
+  [
+    {
+      songName: "Don't stop me now",
+      releaseDate: albums[0].releaseDate,
+      albumId: albums[0].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      songName: 'Escape From LA',
+      releaseDate: albums[1].releaseDate,
+      albumId: albums[1].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      songName: 'Hide and Seek',
+      releaseDate: albums[2].releaseDate,
+      albumId: albums[2].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      songName: 'Seasons',
+      releaseDate: albums[3].releaseDate,
+      albumId: albums[3].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      songName: 'Teach Me Tonight',
+      releaseDate: albums[4].releaseDate,
+      albumId: albums[4].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      songName: 'Hello',
+      releaseDate: albums[4].releaseDate,
+      albumId: albums[4].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+
+  ],
+  { returning: true }
+);
+
+return queryInterface.bulkInsert(
+  'PlaylistSongs',
+  [
+    {
+      song: songs[2].songName,
+      playlistId: playlists[3].id,
+      songId: songs[2].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      song: songs[3].songName,
+      playlistId: playlists[3].id,
+      songId: songs[3].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      song: songs[4].songName,
+      playlistId: playlists[3].id,
+      songId: songs[4].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      song: songs[3].songName,
+      playlistId: playlists[0].id,
+      songId: songs[3].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      song: songs[4].songName,
+      playlistId: playlists[1].id,
+      songId: songs[4].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      song: songs[2].songName,
+      playlistId: playlists[1].id,
+      songId: songs[2].id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ],
+  {}
+);
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('PlaylistSongs', null, {});
-    await queryInterface.bulkDelete('Songs', null, {});
-    await queryInterface.bulkDelete('Albums', null, {});
-    await queryInterface.bulkDelete('Artists', null, {});
-    await queryInterface.bulkDelete('Playlists', null, {});
-    await queryInterface.bulkDelete('UserFriends', null, {});
-    return queryInterface.bulkDelete('Users', null, {});
-  },
+down: async (queryInterface, Sequelize) => {
+  await queryInterface.bulkDelete('PlaylistSongs', null, {});
+  await queryInterface.bulkDelete('Songs', null, {});
+  await queryInterface.bulkDelete('Albums', null, {});
+  await queryInterface.bulkDelete('Artists', null, {});
+  await queryInterface.bulkDelete('Playlists', null, {});
+  await queryInterface.bulkDelete('UserFriends', null, {});
+  return queryInterface.bulkDelete('Users', null, {});
+},
 };
